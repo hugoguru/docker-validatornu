@@ -1,12 +1,12 @@
 # html5validator
 
-This is a docker image packaging the cli-tool [html5validator](https://github.com/svenkreiss/html5validator).
+This is a docker image packaging the [validator/validator](https://github.com/validator/validator) project.
 
 
 Some highlights:
 
 * Supports running as non-root user (unpriveledged)
-* `entrypoint` is set to `html5validator`
+* `entrypoint` is set to `java -jar /dist/vnu.jar`
 * `workdir` is set to `/work`
 
 
@@ -17,6 +17,5 @@ docker run --rm -i \
     -v $(pwd)/website:/work \
     -u $(id -u) \
     hugoguru/html5validator:edge \
-    --also-check-css \
-    --format text
+    --skip-non-html /work \
 ```
