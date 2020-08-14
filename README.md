@@ -1,6 +1,6 @@
 # validator
 
-This is a docker image packaging the [validator/validator](https://github.com/validator/validator) project.
+This is a docker image packaging the [The Nu Html Checker (v.Nu)](https://github.com/validator/validator) project primarily for use as part of CI tasks.
 
 
 Some highlights:
