@@ -1,4 +1,4 @@
-# html5validator
+# validator
 
 This is a docker image packaging the [validator/validator](https://github.com/validator/validator) project.
 
@@ -6,7 +6,7 @@ This is a docker image packaging the [validator/validator](https://github.com/va
 Some highlights:
 
 * Supports running as non-root user (unpriveledged)
-* `entrypoint` is set to `java -jar /dist/vnu.jar`
+* `entrypoint` is set to `validator`
 * `workdir` is set to `/work`
 
 
@@ -16,6 +16,6 @@ Example usage:
 docker run --rm -i \
     -v $(pwd)/website:/work \
     -u $(id -u) \
-    hugoguru/html5validator:edge \
+    hugoguru/validator:edge \
     --skip-non-html /work \
 ```

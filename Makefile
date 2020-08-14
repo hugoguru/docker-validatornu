@@ -1,4 +1,4 @@
-IMAGE=hugoguru/html5validator
+IMAGE=hugoguru/validator
 VERSION=$(shell echo $${VERSION:-20.6.30})
 
 build:
