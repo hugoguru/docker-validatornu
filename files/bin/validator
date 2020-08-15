@@ -1,3 +1,15 @@
 #!/bin/sh
 
-exec java -jar /dist/vnu.jar $@
+set -e
+set -u
+
+if [ "${1:-}" = "--server" ]; then
+    shift
+    exec java \
+        ${JAVA_OPTS:-} \
+        -cp /usr/lib/validator/vnu.jar \
+        -Dnu.validator.servlet.bind-address=${VALIDATOR_BIND:-0.0.0.0} \
+        nu.validator.servlet.Main $@
+else
+    exec java ${JAVA_OPTS:-} -jar /usr/lib/validator/vnu.jar $@
+fi

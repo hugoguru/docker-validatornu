@@ -1,9 +1,9 @@
 # validator
 
-This is a docker image packaging the [The Nu Html Checker (v.Nu)](https://github.com/validator/validator) project primarily for use as part of CI tasks.
+This is a docker image packaging [The Nu Html Checker (v.Nu)](https://github.com/validator/validator) project primarily for use as part of CI tasks.
 
 
-Some highlights:
+Highlights:
 
 * Supports running as non-root user (unpriveledged)
 * `entrypoint` is set to `validator`

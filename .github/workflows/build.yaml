@@ -9,6 +9,10 @@ on:
       version:
         description: 'Version'     
         required: true
+      latest:
+        description: 'Publish latest'
+        required: true
+        default: "false"
 
 jobs:
   build:
@@ -39,3 +43,7 @@ jobs:
       env:
         VERSION: ${{ github.event.inputs.version }}
       run: make docker-push-stable
+
+    - name: Push latest image
+      if: github.event.inputs.latest == 'true'
+      run: make docker-push-latest
