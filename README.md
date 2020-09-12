@@ -5,7 +5,7 @@ This is a docker image packaging [The Nu Html Checker (v.Nu)](https://github.com
 
 Highlights:
 
-* Supports running as non-root user (unpriveledged)
+* Supports running as non-root user (unprivileged)
 * `entrypoint` is set to `validator`
 * `workdir` is set to `/work`
 
