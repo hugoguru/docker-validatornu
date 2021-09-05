@@ -2,7 +2,7 @@
 
 This is a docker image packaging [The Nu Html Checker (v.Nu)](https://github.com/validator/validator) project primarily for use as part of CI tasks.
 
-Latest version: ${VNU_VERSION}
+Latest version: `${VNU_VERSION}`
 
 
 Highlights:
