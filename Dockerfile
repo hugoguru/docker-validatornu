@@ -1,4 +1,4 @@
-FROM openjdk:8u265-jre-slim-buster AS builder
+FROM openjdk:8u302-jre-slim-buster AS builder
 
 ARG VERSION
 
@@ -20,7 +20,7 @@ COPY --from=builder /files /
 
 
 
-FROM openjdk:8u265-jre-slim-buster
+FROM openjdk:8u302-jre-slim-buster
 
 COPY --from=base / /
 

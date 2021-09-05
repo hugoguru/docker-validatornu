@@ -1,34 +1,30 @@
-IMAGE=hugoguru/validatornu
-VERSION=$(shell echo $${VERSION:-20.6.30})
+IMAGE=quay.io/hugoguru/validatornu
+
+define docker_build
+	@DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build \
+		--build-arg VERSION=$(VNU_VERSION) \
+		--platform linux/amd64,linux/arm64 \
+		--progress plain \
+		--tag $(IMAGE):$(1) \
+		.
+endef
+
+define docker_push
+	@DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build \
+		--build-arg VERSION=$(VNU_VERSION) \
+		--platform linux/amd64,linux/arm64 \
+		--progress plain \
+		--tag $(IMAGE):$(1) \
+		--push \
+		.
+endef
 
 build:
-	@docker build --build-arg VERSION=$(VERSION) -t $(IMAGE):dev-base --target base .
-	@docker build --build-arg VERSION=$(VERSION) -t $(IMAGE):dev .
+	$(call docker_build,dev)
 
-docker-login:
-	@docker login -u $${DOCKER_USERNAME} -p $${DOCKER_TOKEN}
+push-edge:
+	$(call docker_push,edge)
 
-docker-push-edge:
-	@docker tag $(IMAGE):dev-base $(IMAGE):edge-base
-	@docker tag $(IMAGE):dev $(IMAGE):edge
-	@docker push $(IMAGE):edge-base
-	@docker push $(IMAGE):edge
-
-docker-push-stable:
-	@docker tag $(IMAGE):dev-base $(IMAGE):$(VERSION)-base
-	@docker tag $(IMAGE):dev $(IMAGE):$(VERSION)
-	@docker push $(IMAGE):$(VERSION)-base
-	@docker push $(IMAGE):$(VERSION)
-
-docker-push-latest:
-	@docker tag $(IMAGE):dev-base $(IMAGE):latest-base
-	@docker tag $(IMAGE):dev $(IMAGE):latest
-	@docker push $(IMAGE):latest-base
-	@docker push $(IMAGE):latest
-
-server:
-	@docker run --rm -it \
-		-p 8888:8888 \
-		-u $$(id -u) \
-		$(IMAGE):dev \
-		--server
+push-release:
+	$(call docker_push,$(VNU_VERSION))
+	$(call docker_push,latest)

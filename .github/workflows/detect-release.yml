@@ -1,0 +1,37 @@
+name: Detect release
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Fetch release info
+        id: release
+        uses: k15g/action-github-release-info@edge
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          owner: validator
+          repo: validator
+
+      - name: Write version
+        run: echo -n "${{ steps.release.outputs.tag_name }}" > .env/VNU_VERSION
+
+      - name: Commit and push potential changes
+        uses: actions-js/push@master
+        with:
+          message: Validator.nu version ${{ steps.source.outputs.version }}
+          github_token: ${{ secrets.BOT_TOKEN }}
+          branch: main
+          author_name: ${{ secrets.BOT_USERNAME }}
+          author_email: ${{ secrets.BOT_EMAIL }}
